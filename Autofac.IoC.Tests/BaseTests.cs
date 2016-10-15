@@ -15,30 +15,10 @@ namespace Autofac.IoC.Tests
     public class BaseTests
     {
         protected IContainer containerBuilder;
-        protected List<Product> _products;
 
         [SetUp]
         public void Setup()
         {
-            _products = new List<Product>()
-            {
-                new Product()
-                {
-                    Code = 1,
-                    Description = "Product1"
-                },
-                new Product()
-                {
-                    Code = 2,
-                    Description = "Product2"
-                },
-                new Product()
-                {
-                    Code = 3,
-                    Description = "Product3"
-                }
-            };
-
             var builder = new ContainerBuilder();
             
             // SINGLE INSTANCES
