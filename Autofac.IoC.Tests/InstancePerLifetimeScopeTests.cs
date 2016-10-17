@@ -14,17 +14,17 @@ namespace Autofac.IoC.Tests
         {
             OrdersService ordersService1, ordersService2;
 
-            using (var scope = this.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 ordersService1 = scope.Resolve<OrdersService>();
             }
 
-            using (var scope = this.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 ordersService2 = scope.Resolve<OrdersService>();
             }
 
-            object.ReferenceEquals(ordersService1, ordersService2).ShouldBeEquivalentTo(false);
+            ReferenceEquals(ordersService1, ordersService2).ShouldBeEquivalentTo(false);
         }
 
         [Test]
@@ -34,11 +34,11 @@ namespace Autofac.IoC.Tests
 
             try
             {
-                using (var scope = this.containerBuilder.BeginLifetimeScope())
+                using (var scope = containerBuilder.BeginLifetimeScope())
                 {
                     customerService1 = scope.Resolve<CustomerService>();
 
-                    using (var scope1 = this.containerBuilder.BeginLifetimeScope("scope1"))
+                    using (var scope1 = containerBuilder.BeginLifetimeScope("scope1"))
                     {
                         customerService2 = scope.Resolve<CustomerService>();
                     }
@@ -57,17 +57,17 @@ namespace Autofac.IoC.Tests
         {
             CustomerService customerService1, customerService2;
 
-            using (var scope = this.containerBuilder.BeginLifetimeScope("scope1"))
+            using (var scope = containerBuilder.BeginLifetimeScope("scope1"))
             {
                 customerService1 = scope.Resolve<CustomerService>();
 
-                using (var scope1 = this.containerBuilder.BeginLifetimeScope())
+                using (var scope1 = containerBuilder.BeginLifetimeScope())
                 {
                     customerService2 = scope.Resolve<CustomerService>();
                 }
             }
 
-            object.ReferenceEquals(customerService1, customerService2).ShouldBeEquivalentTo(true);
+            ReferenceEquals(customerService1, customerService2).ShouldBeEquivalentTo(true);
         }
     }
 }

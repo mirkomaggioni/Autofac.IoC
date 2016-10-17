@@ -13,7 +13,7 @@ namespace Autofac.IoC.Tests
         [Test]
         public void should_exists_different_token()
         {
-            using (var scope = base.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 var tokenService1 = scope.Resolve<PerDependencyTokenService>();
                 var tokenService2 = scope.Resolve<PerDependencyTokenService>();
@@ -30,7 +30,7 @@ namespace Autofac.IoC.Tests
         [Test]
         public void should_be_able_to_resolve()
         {
-            using (var scope = base.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 var result = scope.Resolve<IProductsRepository>();
                 result.Should().NotBeNull();

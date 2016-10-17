@@ -13,7 +13,7 @@ namespace Autofac.IoC.Tests
         [Test]
         public void should_exists_only_one_token()
         {
-            using (var scope = base.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 var tokenService1 = scope.Resolve<SingletonTokenService>();
                 var tokenService2 = scope.Resolve<SingletonTokenService>();
@@ -30,7 +30,7 @@ namespace Autofac.IoC.Tests
         [Test]
         public void should_return_the_products_list()
         {
-            using (var scope = this.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 var productsService = scope.Resolve<ProductsService>();
                 var result = productsService.GetProducts();
@@ -45,17 +45,17 @@ namespace Autofac.IoC.Tests
         {
             ProductsService productsService1, productsService2;
 
-            using (var scope = this.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 productsService1 = scope.Resolve<ProductsService>();
             }
 
-            using (var scope = this.containerBuilder.BeginLifetimeScope())
+            using (var scope = containerBuilder.BeginLifetimeScope())
             {
                 productsService2 = scope.Resolve<ProductsService>();
             }
 
-            object.ReferenceEquals(productsService1, productsService2).ShouldBeEquivalentTo(true);
+            ReferenceEquals(productsService1, productsService2).ShouldBeEquivalentTo(true);
         }
     }
 }
