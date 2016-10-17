@@ -11,7 +11,7 @@ namespace Autofac.IoC.Tests
     public class SingleInstanceTests: BaseTests
     {
         [Test]
-        public void should_exists_only_one_token()
+        public void should_exists_only_one_token_single_instance()
         {
             using (var scope = containerBuilder.BeginLifetimeScope())
             {
@@ -41,7 +41,7 @@ namespace Autofac.IoC.Tests
         }
 
         [Test]
-        public void should_is_the_same_instance()
+        public void should_is_the_same_single_instance()
         {
             ProductsService productsService1, productsService2;
 

@@ -47,6 +47,11 @@ namespace Autofac.IoC.Tests
                 .InstancePerDependency()
                 .PreserveExistingDefaults();
 
+            // PER REQUEST
+            builder.RegisterType<PerRequestTokenService>()
+                .AsSelf()
+                .InstancePerRequest();
+
             // PER LIFETIMESCOPE
             builder.RegisterType<OrdersService>()
                 .AsSelf()

@@ -10,7 +10,7 @@ namespace Autofac.IoC.Tests
     public class InstancePerLifetimeScopeTests : BaseTests
     {
         [Test]
-        public void should_is_not_the_same_instance()
+        public void should_is_not_the_same_instance_for_different_lifetime_scopes()
         {
             OrdersService ordersService1, ordersService2;
 
@@ -28,7 +28,7 @@ namespace Autofac.IoC.Tests
         }
 
         [Test]
-        public void should_not_be_able_to_resolve()
+        public void should_not_be_able_to_resolve_instance_per_lifetime_scope()
         {
             CustomerService customerService1 = null, customerService2 = null;
 
@@ -53,7 +53,7 @@ namespace Autofac.IoC.Tests
         }
 
         [Test]
-        public void should_be_able_to_resolve()
+        public void should_be_able_to_resolve_instance_per_lifetime_scope()
         {
             CustomerService customerService1, customerService2;
 

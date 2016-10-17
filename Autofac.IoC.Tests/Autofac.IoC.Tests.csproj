@@ -68,6 +68,7 @@
     <Compile Include="BaseTests.cs" />
     <Compile Include="InstancePerLifetimeScopeTests.cs" />
     <Compile Include="PerDependencyTests.cs" />
+    <Compile Include="PerRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleInstanceTests.cs" />
   </ItemGroup>

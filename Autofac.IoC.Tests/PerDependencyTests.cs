@@ -11,7 +11,7 @@ namespace Autofac.IoC.Tests
     public class PerDependencyTests : BaseTests
     {
         [Test]
-        public void should_exists_different_token()
+        public void should_exists_different_token_per_dependency()
         {
             using (var scope = containerBuilder.BeginLifetimeScope())
             {
@@ -28,7 +28,7 @@ namespace Autofac.IoC.Tests
         }
 
         [Test]
-        public void should_be_able_to_resolve()
+        public void should_be_able_to_resolve_instance_per_dependency()
         {
             using (var scope = containerBuilder.BeginLifetimeScope())
             {
@@ -38,7 +38,7 @@ namespace Autofac.IoC.Tests
         }
 
         [Test]
-        public void should_not_be_able_to_resolve()
+        public void should_not_be_able_to_resolve_instance_per_dependency()
         {
             ProductsRepository repository = null;
 
