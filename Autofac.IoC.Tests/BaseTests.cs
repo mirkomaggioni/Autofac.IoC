@@ -8,6 +8,9 @@ using Autofac.IoC.BusinessServices;
 using Autofac.Core;
 using System.Configuration;
 using System.Reflection;
+using Autofac.IoC.Tests.Modules;
+using System.Web.Http;
+using Autofac.Integration.WebApi;
 
 namespace Autofac.IoC.Tests
 {
@@ -15,60 +18,39 @@ namespace Autofac.IoC.Tests
     public class BaseTests
     {
         protected IContainer containerBuilder;
+        protected HttpConfiguration httpConfiguration;
 
         [SetUp]
         public void Setup()
         {
             var builder = new ContainerBuilder();
-            
-            // SINGLE INSTANCES
-            builder.RegisterType<SingletonTokenService>()
-                .AsSelf()
-                .AsImplementedInterfaces()
-                .SingleInstance();
 
-            builder.RegisterType<ProductsService>()
-                .AsSelf()
-                .SingleInstance();
+            // SINGLE INSTANCES
+            builder.RegisterModule(new SingleInstancesModule());
 
             // PER DEPENDENCY
-            var repositoriesAssembly = Assembly.GetAssembly(typeof(ProductsRepository));
-            builder.RegisterAssemblyTypes(repositoriesAssembly)
-                .Where(t => t.Name.EndsWith("Repository"))
-                .AsImplementedInterfaces()
-                .WithParameter(
-                    new TypedParameter(typeof(string), ConfigurationManager.ConnectionStrings["Context"].ToString())
-                );
-
-            // ADDING PRESERVEEXISTINGDEFAULT IN ORDER TO MAKE SINGLETONTOKENSERVICE THE DEFAULT
-            builder.RegisterType<PerDependencyTokenService>()
-                .AsSelf()
-                .AsImplementedInterfaces()
-                .InstancePerDependency()
-                .PreserveExistingDefaults();
+            builder.RegisterModule(new PerDependencyModule());
 
             // PER REQUEST
-            builder.RegisterType<PerRequestTokenService>()
-                .AsSelf()
-                .InstancePerRequest();
+            builder.RegisterModule(new PerRequestModule());
 
             // PER LIFETIMESCOPE
-            builder.RegisterType<OrdersService>()
-                .AsSelf()
-                .InstancePerLifetimeScope();
-
-            // PER MATCHING LIFETIMESCOPE
-            builder.RegisterType<CustomerService>()
-                .AsSelf()
-                .InstancePerMatchingLifetimeScope("scope1");
+            builder.RegisterModule(new PerLifetimeScopeModule());
 
             containerBuilder = builder.Build();
+
+            httpConfiguration = new HttpConfiguration
+            {
+                DependencyResolver = new AutofacWebApiDependencyResolver(containerBuilder)
+            };
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            containerBuilder.Dispose();
-        }
+    [TearDown]
+    public void TearDown()
+    {
+        httpConfiguration.Dispose();
+        containerBuilder.Dispose();
     }
+}
+
 }
