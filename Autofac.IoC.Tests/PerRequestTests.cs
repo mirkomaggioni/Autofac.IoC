@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using NUnit.Framework;
 using Autofac.IoC.BusinessServices;
 using Autofac.IoC.Repositories;
 using Autofac.IoC.CoreServices;
 using FluentAssertions;
-using System.Net.Http;
+using Autofac.IoC.Controllers.Controllers;
+using Autofac.IoC.Controllers.Controllers.Api;
 
 namespace Autofac.IoC.Tests
 {
@@ -35,28 +37,6 @@ namespace Autofac.IoC.Tests
         }
 
         [Test]
-        public void should_not_be_able_to_resolve_instance_per_request()
-        {
-            LoggerService service = null;
-
-            try
-            {
-                using (HttpRequestMessage request = new HttpRequestMessage())
-                {
-                    request.SetConfiguration(httpConfiguration);
-                    var dependencyScope = request.GetDependencyScope();
-                    service = dependencyScope.GetService(typeof(LoggerService)) as LoggerService;
-
-                    service.ShouldBeEquivalentTo(null);
-                }
-            }
-            catch (Exception ex)
-            {
-                service.ShouldBeEquivalentTo(null);
-            }
-        }
-
-        [Test]
         public void should_be_able_to_resolve_instance_per_request()
         {
             using (HttpRequestMessage request = new HttpRequestMessage())
@@ -66,6 +46,26 @@ namespace Autofac.IoC.Tests
                 AccountService service = dependencyScope.GetService(typeof(AccountService)) as AccountService;
 
                 service.Should().NotBeNull();
+            }
+        }
+
+        [Test]
+        public void should_be_able_to_resolve_mvc_controller()
+        {
+            using (var scope = containerBuilder.BeginLifetimeScope())
+            {
+                var controller = scope.Resolve<HomeController>();
+                controller.Should().NotBeNull();
+            }
+        }
+
+        [Test]
+        public void should_be_able_to_resolve_api_controller()
+        {
+            using (var scope = containerBuilder.BeginLifetimeScope())
+            {
+                var controller = scope.Resolve<AccountController>();
+                controller.Should().NotBeNull();
             }
         }
     }

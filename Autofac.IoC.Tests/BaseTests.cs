@@ -11,6 +11,8 @@ using System.Reflection;
 using Autofac.IoC.Tests.Modules;
 using System.Web.Http;
 using Autofac.Integration.WebApi;
+using Autofac.Integration.Mvc;
+using System.Web.Mvc;
 
 namespace Autofac.IoC.Tests
 {
@@ -38,6 +40,8 @@ namespace Autofac.IoC.Tests
             builder.RegisterModule(new PerLifetimeScopeModule());
 
             containerBuilder = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(containerBuilder));
 
             httpConfiguration = new HttpConfiguration
             {

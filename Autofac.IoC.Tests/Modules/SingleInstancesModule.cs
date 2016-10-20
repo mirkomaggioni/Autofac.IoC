@@ -22,7 +22,6 @@ namespace Autofac.IoC.Tests.Modules
             builder.RegisterType<LoggerService>()
                 .AsSelf()
                 .SingleInstance();
-
         }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.IoC", "Autofac.IoC\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.IoC.Tests", "Autofac.IoC.Tests\Autofac.IoC.Tests.csproj", "{9E453B2B-4DE2-409E-ACA6-98234BF188F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.IoC.Controllers", "Autofac.IoC.Controllers\Autofac.IoC.Controllers.csproj", "{310372D1-43FA-4F2D-AE58-5A3712AD3BB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9E453B2B-4DE2-409E-ACA6-98234BF188F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E453B2B-4DE2-409E-ACA6-98234BF188F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E453B2B-4DE2-409E-ACA6-98234BF188F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310372D1-43FA-4F2D-AE58-5A3712AD3BB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310372D1-43FA-4F2D-AE58-5A3712AD3BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310372D1-43FA-4F2D-AE58-5A3712AD3BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310372D1-43FA-4F2D-AE58-5A3712AD3BB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
