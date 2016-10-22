@@ -49,12 +49,12 @@ namespace Autofac.IoC.Tests
             };
         }
 
-    [TearDown]
-    public void TearDown()
-    {
-        httpConfiguration.Dispose();
-        containerBuilder.Dispose();
+        [TearDown]
+        public void TearDown()
+        {
+            httpConfiguration.Dispose();
+            containerBuilder.Dispose();
+        }
     }
-}
 
 }
