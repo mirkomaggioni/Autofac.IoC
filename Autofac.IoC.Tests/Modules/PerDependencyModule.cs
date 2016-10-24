@@ -21,12 +21,10 @@ namespace Autofac.IoC.Tests.Modules
                         new TypedParameter(typeof(string), ConfigurationManager.ConnectionStrings["Context"].ToString())
                     );
 
-            // ADDING PRESERVEEXISTINGDEFAULT IN ORDER TO MAKE SINGLETONTOKENSERVICE THE DEFAULT
             builder.RegisterType<PerDependencyTokenService>()
                 .AsSelf()
                 .AsImplementedInterfaces()
-                .InstancePerDependency()
-                .PreserveExistingDefaults();
+                .Keyed<ITokenService>("perDependencyTokenService");
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac.IoC.CoreServices;
 using Autofac.IoC.BusinessServices;
+using Autofac.Core;
 
 namespace Autofac.IoC.Tests.Modules
 {
@@ -13,15 +14,24 @@ namespace Autofac.IoC.Tests.Modules
             builder.RegisterType<SingletonTokenService>()
                 .AsSelf()
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance()
+                .Keyed<ITokenService>("singletonTokenService");
 
             builder.RegisterType<ProductsService>()
                 .AsSelf()
-                .SingleInstance();
+                .SingleInstance()
+                .WithParameter(new ResolvedParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(ITokenService),
+                    (pi, ctx) => ctx.ResolveKeyed<ITokenService>("singletonTokenService")
+                ));
 
             builder.RegisterType<LoggerService>()
                 .AsSelf()
-                .SingleInstance();
+                .SingleInstance()
+                .WithParameter(new ResolvedParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(ITokenService),
+                    (pi, ctx) => ctx.ResolveKeyed<ITokenService>("singletonTokenService")
+                ));
         }
     }
 }

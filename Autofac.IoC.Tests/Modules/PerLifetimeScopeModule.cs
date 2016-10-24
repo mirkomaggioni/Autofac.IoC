@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac.Core;
 using Autofac.IoC.BusinessServices;
+using Autofac.IoC.CoreServices;
 
 namespace Autofac.IoC.Tests.Modules
 {
@@ -14,7 +15,11 @@ namespace Autofac.IoC.Tests.Modules
         {
             builder.RegisterType<OrdersService>()
                 .AsSelf()
-                .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope()
+                .WithParameter(new ResolvedParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(ITokenService),
+                    (pi, ctx) => ctx.ResolveKeyed<ITokenService>("perDependencyTokenService")
+                ));
 
             // PER MATCHING LIFETIMESCOPE
             builder.RegisterType<CustomerService>()

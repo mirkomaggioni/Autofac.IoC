@@ -50,7 +50,6 @@
     <Compile Include="BusinessServices\OrdersService.cs" />
     <Compile Include="BusinessServices\ProductsService.cs" />
     <Compile Include="CoreServices\ITokenService.cs" />
-    <Compile Include="CoreServices\PerRequestTokenService.cs" />
     <Compile Include="CoreServices\PerDependencyTokenService.cs" />
     <Compile Include="CoreServices\SingletonTokenService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

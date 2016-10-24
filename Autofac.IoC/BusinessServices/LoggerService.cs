@@ -9,7 +9,7 @@ namespace Autofac.IoC.BusinessServices
     {
         private ITokenService _tokenService;
 
-        public LoggerService(SingletonTokenService tokenService)
+        public LoggerService(ITokenService tokenService)
         {
             _tokenService = tokenService;
         }

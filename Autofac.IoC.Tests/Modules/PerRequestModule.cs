@@ -7,6 +7,7 @@ using Autofac.Integration.WebApi;
 using Autofac.Integration.Mvc;
 using Autofac.IoC.Controllers.Controllers;
 using Autofac.IoC.Controllers.Controllers.Api;
+using Autofac.Core;
 
 namespace Autofac.IoC.Tests.Modules
 {
@@ -14,13 +15,13 @@ namespace Autofac.IoC.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<PerRequestTokenService>()
-                .AsSelf()
-                .InstancePerRequest();
-
             builder.RegisterType<AccountService>()
                 .AsSelf()
-                .InstancePerRequest();
+                .InstancePerRequest()
+                .WithParameter(new ResolvedParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(ITokenService),
+                    (pi, ctx) => ctx.ResolveKeyed<ITokenService>("singletonTokenService")
+                ));
 
             var controllersAssembly = Assembly.GetAssembly(typeof(HomeController));
             var apiControllersAssembly = Assembly.GetAssembly(typeof(AccountController));
